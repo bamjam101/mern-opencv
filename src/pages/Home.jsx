@@ -69,15 +69,15 @@ const Home = () => {
           />
         </div>
       </header>
-      <main className="flex flex-col justify-center items-center w-full gap-2">
+      <main className="flex flex-col justify-center items-center w-full gap-2 mb-20">
         <header>
           <h2 className="text-lg text-center font-bold">Services</h2>
           <p className="text-center">Choose what you are looking for.</p>
-          <section className="grid grid-cols-4 place-items-center gap-5 py-6">
+          <section className="grid place-items-center gap-5 py-6">
             <article className="relative flex flex-col justify-center items-center gap-3 p-6 bg-transparent/20 rounded-lg">
               <Glowbox />
               <header className="mx-4 border-b-4 border-b-blue">
-                <h4 className="text-lg font-bold">Calculate Presence</h4>
+                <h4 className="text-lg font-bold">Neural Network Based </h4>
               </header>
 
               <p className="text-center text-sm">
@@ -85,11 +85,19 @@ const Home = () => {
                 the view of your camera lens. It can have a wind application in
                 inspecting job and it can also be used for security use.
               </p>
-              <div>
-                <button className="px-6 py-3 hover:scale-[101%] transition-transform duration-200 text-sm uppercase font-bold rounded-lg bg-blue">
-                  Launch Service
-                </button>
-              </div>
+              <form
+                action="/upload"
+                method="POST"
+                enctype="multipart/form-data"
+              >
+                <input type="file" name="file" multiple class="btn" />
+                <input
+                  className="px-6 py-3 hover:scale-[101%] transition-transform duration-200 text-sm uppercase font-bold rounded-lg bg-blue border-2 border-blue"
+                  type="submit"
+                  value="Upload"
+                  class="btn"
+                />
+              </form>
             </article>
           </section>
         </header>
