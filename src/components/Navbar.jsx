@@ -1,8 +1,37 @@
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faUser } from "@fortawesome/free-solid-svg-icons";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import { setLogout } from "../feature/global-slice";
+import { useDispatch, useSelector } from "react-redux";
+import { removeItemFromLocalStorage, setInLocalStorage } from "../utlis";
+import { useNavigate } from "react-router-dom";
 
 const Navbar = () => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const user = useSelector((state) => state.global.profile);
+
+  const [isUserLoggedIn, setIsUserLoggedIn] = useState(true);
   const [fixed, setFixed] = useState(false);
+  const [showProfileMenu, setShowProfileMenu] = useState(false);
+
+  function handleProfileClick(event) {
+    event.stopPropagation();
+    setShowProfileMenu(!showProfileMenu);
+  }
+
+  function onWindowClick() {
+    if (showProfileMenu) {
+      setShowProfileMenu(false);
+    }
+  }
+
+  function handleSignOut() {
+    dispatch(setLogout());
+    removeItemFromLocalStorage("PROFILE");
+    navigate("/login");
+  }
 
   function onWindowScroll() {
     if (window.scrollY > 0) {
@@ -14,30 +43,43 @@ const Navbar = () => {
 
   useEffect(() => {
     window.addEventListener("scroll", onWindowScroll);
-    return () => window.removeEventListener("scroll", onWindowScroll);
+    window.addEventListener("click", onWindowClick);
+    if (!user) {
+      setIsUserLoggedIn(false);
+    }
+    return () => {
+      window.removeEventListener("scroll", onWindowScroll);
+      window.removeEventListener("click", onWindowClick);
+    };
   }, []);
   return (
     <header
-      className={`${
-        fixed ? "fixed bg-black" : "relative bg-transparent"
-      } z-10 grid h-[8vh] w-full gap-4 text-sm transition-colors place-items-start duration-200 ease-linear grid-cols-[85%_15%]`}
+      className={`h-[8vh] flex items-center justify-between transition-colors duration-300 ease-linear ${
+        fixed ? "bg-black" : "bg-transparent"
+      }`}
     >
-      <Link to={"/"} className="flex items-center h-full">
-        <h1 className="text-2xl font-bold">MirrorDesk</h1>
-      </Link>
-      <nav className="invisible grid h-full place-items-start items-center lg:visible">
-        <ul className="flex items-center justify-center gap-4 text-gray-300">
-          <li>
-            <a href="#home">Home</a>
-          </li>
-          <li>
-            <a href="#about">About</a>
-          </li>
-          <li>
-            <a href="#contact">Contact Us</a>
-          </li>
-        </ul>
-      </nav>
+      <h1 className="text-2xl font-bold cursor-pointer">MirrorDesk</h1>
+      <section className="relative">
+        {isUserLoggedIn && (
+          <button
+            className="flex items-center gap-2"
+            onClick={handleProfileClick}
+          >
+            <FontAwesomeIcon className="text-white font-md" icon={faUser} />
+            <p className="text-sm capitalize">{user?.name}</p>
+          </button>
+        )}
+        {showProfileMenu ? (
+          <ul className="absolute flex w-[100px] list-none flex-col justify-center gap-4 rounded-md bg-dark px-1 py-1 text-sm top-[1.4rem]">
+            <li
+              className="cursor-pointer rounded-md px-3 py-2 text-white/80 hover:bg-gray-800 hover:text-white/90"
+              onClick={handleSignOut}
+            >
+              Log Out
+            </li>
+          </ul>
+        ) : null}
+      </section>
     </header>
   );
 };

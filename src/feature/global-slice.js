@@ -2,7 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 import { getFromLocalStorage, setInLocalStorage } from "../utlis";
 
 const initialState = {
-  profile: getFromLocalStorage("PROFILE") || {},
+  profile: getFromLocalStorage("PROFILE") || null,
 };
 
 export const globalSlice = createSlice({
@@ -19,15 +19,6 @@ export const globalSlice = createSlice({
   },
 });
 
-export const {
-  setMode,
-  setUser,
-  setProfile,
-  setUserRole,
-  setAdmin,
-  setLevels,
-  setLoading,
-  setLogout,
-} = globalSlice.actions;
+export const { setProfile, setLogout } = globalSlice.actions;
 
 export default globalSlice.reducer;

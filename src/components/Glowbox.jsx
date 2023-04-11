@@ -1,9 +1,9 @@
 import React from "react";
 
-const GlowBox = ({ right, left, top, bottom, opacity }) => {
+const GlowBox = ({ right, left, top, bottom }) => {
   return (
     <div
-      className={`fixed w-[10rem] h-[10rem] top-[${top}] right-[${right}] left-[${left}] bottom-[${bottom}] opacity-[${opacity}] bg-window drop-shadow-lg`}
+      className={`fixed w-[10rem] h-[10rem] top-[${top}] right-[${right}] left-[${left}] bottom-[${bottom}] opacity-[0.1] bg-window drop-shadow-lg -z-50`}
       style={{
         borderRadius: "54% 46% 60% 40% / 67% 30% 70% 33%",
         WebkitFilter: "blur(5px)",
