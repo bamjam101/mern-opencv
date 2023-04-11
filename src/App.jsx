@@ -5,6 +5,7 @@ import {
   createBrowserRouter,
   RouterProvider,
 } from "react-router-dom";
+
 import { Navigate } from "react-router-dom";
 import Layout from "./components/Layout";
 const Register = lazy(() => import("./pages/Register"));
