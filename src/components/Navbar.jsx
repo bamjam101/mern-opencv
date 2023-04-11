@@ -6,13 +6,16 @@ import { setLogout } from "../feature/global-slice";
 import { useDispatch, useSelector } from "react-redux";
 import { removeItemFromLocalStorage, setInLocalStorage } from "../utlis";
 import { useNavigate } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 
 const Navbar = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const location = useLocation();
   const user = useSelector((state) => state.global.profile);
 
   const [isUserLoggedIn, setIsUserLoggedIn] = useState(true);
+  const [isHomePage, setIsHomePage] = useState(false);
   const [fixed, setFixed] = useState(false);
   const [showProfileMenu, setShowProfileMenu] = useState(false);
 
@@ -47,18 +50,25 @@ const Navbar = () => {
     if (!user) {
       setIsUserLoggedIn(false);
     }
+    if (location.pathname === "/") {
+      setIsHomePage(true);
+    }
     return () => {
       window.removeEventListener("scroll", onWindowScroll);
       window.removeEventListener("click", onWindowClick);
     };
-  }, []);
+  }, [user]);
   return (
     <header
-      className={`h-[8vh] flex items-center justify-between transition-colors duration-300 ease-linear ${
-        fixed ? "bg-black" : "bg-transparent"
+      className={`min-h-[8vh] flex items-center z-50 w-full overflow-hidden justify-between ${
+        isHomePage ? "px-16" : "px-0"
+      } transition-colors duration-200 ease-in-out ${
+        fixed ? "fixed top-0 bg-black" : "static bg-transparent"
       }`}
     >
-      <h1 className="text-2xl font-bold cursor-pointer">MirrorDesk</h1>
+      <Link to={"/"} className="text-2xl font-bold cursor-pointer">
+        MirrorDesk
+      </Link>
       <section className="relative">
         {isUserLoggedIn && (
           <button

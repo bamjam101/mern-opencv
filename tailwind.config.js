@@ -8,11 +8,6 @@ module.exports = {
         white: "#ffffff",
         black: "#191414",
         "light-black": "#282828",
-        primary: "#FFFFFF",
-        secondary: "#b3b3b3",
-      },
-      gridTemplateColumns: {
-        "auto-fill-cards": "repeat(auto-fill, minmax(200px, 1fr))",
       },
     },
   },

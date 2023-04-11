@@ -4,8 +4,10 @@ import Navbar from "./Navbar";
 
 const Layout = () => {
   return (
-    <div className="relative px-16 text-white">
-      <Navbar />
+    <div className="relative text-white">
+      <header className="min-h-[8vh]">
+        <Navbar />
+      </header>
       <Outlet />
     </div>
   );

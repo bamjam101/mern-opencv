@@ -35,7 +35,7 @@ const Register = () => {
     }
   }, []);
   return (
-    <div className="relative h-screen w-screen px-16 text-white">
+    <div className="relative h-screen w-full px-16 text-white">
       <Navbar />
       <Glowbox top="0" left="0" />
       <main className="grid place-items-center grid-cols-2 min-h-[92vh]">

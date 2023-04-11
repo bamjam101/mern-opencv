@@ -14,7 +14,7 @@ export const globalSlice = createSlice({
       setInLocalStorage("PROFILE", state.profile);
     },
     setLogout: (state) => {
-      state.profile = {};
+      state.profile = null;
     },
   },
 });
