@@ -60,7 +60,7 @@ const Navbar = () => {
   }, [user]);
   return (
     <header
-      className={`min-h-[8vh] flex items-center z-50 w-full overflow-hidden justify-between ${
+      className={`min-h-[8vh] flex items-center z-50 w-full justify-between ${
         isHomePage ? "px-16" : "px-0"
       } transition-colors duration-200 ease-in-out ${
         fixed ? "fixed top-0 bg-black" : "static bg-transparent"
@@ -82,7 +82,7 @@ const Navbar = () => {
         {showProfileMenu ? (
           <ul className="absolute flex w-[100px] list-none flex-col justify-center gap-4 rounded-md bg-dark px-1 py-1 text-sm top-[1.4rem]">
             <li
-              className="cursor-pointer rounded-md px-3 py-2 text-white/80 hover:bg-gray-800 hover:text-white/90"
+              className="cursor-pointer z-50 rounded-md px-3 py-2 text-white/80 bg-gray-700 hover:bg-gray-800 hover:text-white/90"
               onClick={handleSignOut}
             >
               Log Out

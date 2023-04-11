@@ -7,7 +7,6 @@ import Glowbox from "../components/Glowbox";
 
 const Home = () => {
   const user = useSelector((state) => state.global.profile);
-
   const [isUserLoggedIn, setIsUserLoggedIn] = useState(true);
 
   useEffect(() => {
@@ -61,7 +60,7 @@ const Home = () => {
             </article>
           )}
         </div>
-        <div className="grid place-items-center w-full h-full">
+        <div className="grid place-items-center w-full h-full -z-50">
           <img
             className="object-contain w-[60%] animate-bounce ease-in-out duration-200"
             src="./rd-theme.png"
@@ -80,24 +79,43 @@ const Home = () => {
                 <h4 className="text-lg font-bold">Neural Network Based </h4>
               </header>
 
-              <p className="text-center text-sm">
+              <p className="text-center text-sm px-20">
                 This tool lets you to track and have a count of people crossing
                 the view of your camera lens. It can have a wind application in
                 inspecting job and it can also be used for security use.
               </p>
-              <form
-                action="/upload"
-                method="POST"
-                enctype="multipart/form-data"
-              >
-                <input type="file" name="file" multiple class="btn" />
-                <input
-                  className="px-6 py-3 hover:scale-[101%] transition-transform duration-200 text-sm uppercase font-bold rounded-lg bg-blue border-2 border-blue"
-                  type="submit"
-                  value="Upload"
-                  class="btn"
-                />
-              </form>
+              {user ? (
+                <div className="flex flex-col justify-center items-center">
+                  <form
+                    action="http://localhost:5000/upload"
+                    method="POST"
+                    encType="multipart/form-data"
+                  >
+                    <input type="file" name="file" multiple />
+                    <input
+                      className="px-6 py-3 hover:scale-[101%] transition-transform duration-200 text-sm uppercase font-bold rounded-lg bg-blue border-2 border-blue"
+                      type="submit"
+                      value="Upload"
+                    />
+                  </form>
+                  <form action="http://localhost:5000/my-link/">
+                    <input
+                      className="px-6 py-3 hover:scale-[101%] transition-transform duration-200 text-sm uppercase font-bold rounded-lg bg-blue border-2 border-blue"
+                      type="submit"
+                      value="Launch"
+                    />
+                  </form>
+                </div>
+              ) : (
+                <div>
+                  <Link
+                    to={"/register"}
+                    className="px-4 py-2 hover:scale-[101%] transition-transform duration-200 text-center text-sm uppercase font-bold rounded-lg bg-blue"
+                  >
+                    Register To Use Seamlessly
+                  </Link>
+                </div>
+              )}
             </article>
           </section>
         </header>
